@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tevi Star Store - Top Up Cepat & Murah</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-hover: #5b4bc4;
+            --secondary: #a29bfe;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --promo: #f43f5e;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animasi Masuk Halaman */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 5px;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(162, 155, 254, 0.2); }
+            to { text-shadow: 0 0 20px rgba(162, 155, 254, 0.6); }
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, var(--promo), #e11d48);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+            animation: pulseBanner 2s infinite;
+        }
+
+        @keyframes pulseBanner {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.6s; }
+        .form-group:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], select, input[type="file"] {
+            width: 100%;
+            padding: 14px;
+            background: #0f172a;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: inherit;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.2);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .grid-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .option-card {
+            background: #0f172a;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.2);
+        }
+
+        .option-card.active {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.15);
+            transform: scale(1.02);
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-top: 8px;
+            font-size: 1.05rem;
+        }
+
+        .badge {
+            background: var(--promo);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .payment-info {
+            background: #0f172a;
+            border: 1px dashed var(--secondary);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 12px;
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .payment-info img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 12px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), #5b4bc4);
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+            background: linear-gradient(135deg, #7c6ef7, var(--primary));
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+        }
+
+        /* Link Pembelian / Fast Checkout Link Section */
+        .direct-link-box {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .direct-link-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .link-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .link-input {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-overflow: ellipsis;
+        }
+
+        .btn-copy {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-copy:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        /* Toast Notification Animasi */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--accent);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 10;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-weight: 500;
+        }
+
+        #toast.show {
+            visibility: hidden;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from { bottom: 0; opacity: 0; }
+            to { bottom: 30px; opacity: 1; }
+        }
+
+        @keyframes fadeout {
+            from { bottom: 30px; opacity: 1; }
+            to { bottom: 0; opacity: 0; }
+        }
+    
+        /* Modal Overlay & Animasi Sukses */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        /* Spinner Loading */
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--border);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Checkmark Sukses */
+        .success-checkmark {
+            width: 60px; height: 60px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .success-checkmark svg {
+            width: 35px; height: 35px;
+            stroke: var(--accent);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: drawCheck 0.5s 0.2s ease forwards;
+        }
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .modal-title {
+            font-size: 1.25rem; font-weight: bold; color: var(--text); margin-bottom: 10px;
+        }
+        .modal-desc {
+            font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5;
+        }
+        .btn-modal {
+            background: var(--primary); color: white; border: none; padding: 10px 20px;
+            border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s;
+        }
+        .btn-modal:hover { background: var(--primary-hover); }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tevi Star Store</h1>
+    <p class="subtitle">Top Up Cepat, Murah, dan Bergaransi Resmi</p>
+
+    <div class="promo-banner">
+        🔥 PROMO HARI INI: Beli 1000 Star Bonus 150 Star! 🔥<br>
+        ✨ Pembelian star di atas 40.000 FREE VCS! ✨
+    </div>
+
+    <form id="topupForm">
+        <!-- Input ID -->
+        <div class="form-group">
+            <label for="teviId">1. Masukkan Username / ID Tevi</label>
+            <input type="text" id="teviId" placeholder="Contoh: usertevi123" required>
+        </div>
+
+        <!-- Pilih Nominal -->
+        <div class="form-group">
+            <label>2. Pilih Nominal Star</label>
+            <div class="grid-options" id="starOptions">
+                <div class="option-card" onclick="selectStar(this, 'Tevi Premium', 'Rp 19.000')">
+                    <span class="badge" style="background: #8b5cf6;">VIP</span>
+                    <div>Tevi Premium</div>
+                    <div class="price">Rp 19.000</div>
+                </div>
+                <!-- Produk 10 Star & 25 Star Sudah Dihapus -->
+                <div class="option-card" onclick="selectStar(this, '50 Star', 'Rp 10.000')">
+                    <div>50 Star</div>
+                    <div class="price">Rp 10.000</div>
+                </div>
+                <div class="option-card" onclick="selectStar(this, '100 Star', 'Rp 15.000')">
+                    <span class="badge">Diskon</span>
+                    <div>100 Star</div>
+                    <div class="price">Rp 15.000</div>
+                </div>
+                <div class="option-card" onclick="selectStar(this, '250 Star', 'Rp 48.000')">
+                    <div>250 Star</div>
+                    <div class="price">Rp 48.000</div>
+                </div>
+                <div class="option-card" onclick="selectStar(this, '550 Star', 'Rp 95.000')">
+                    <span class="badge">Bonus 50!</span>
+                    <div>500 + 50 Star</div>
+                    <div class="price">Rp 95.000</div>
+                </div>
+                <div class="option-card" onclick="selectStar(this, '1200 Star', 'Rp 180.000')">
+                    <span class="badge" style="background: #10b981;">Terlaris</span>
+                    <div>1000 + 200 Star</div>
+                    <div class="price">Rp 180.000</div>
+                </div>
+                <div class="option-card" onclick="selectStar(this, '1500 Star', 'Rp 220.000')">
+                    <span class="badge" style="background: #3b82f6;">Special VIP</span>
+                    <div>1500 Star + Free VCS</div>
+                    <div class="price">Rp 220.000</div>
+                </div>
+                <div class="option-card" onclick="selectStar(this, '2700 Star', 'Rp 380.000')">
+                    <span class="badge" style="background: #f59e0b;">Mega Bonus</span>
+                    <div>2300 + 400 Star</div>
+                    <div class="price">Rp 380.000</div>
+                </div>
+            </div>
+            <input type="hidden" id="selectedStar" required>
+            <input type="hidden" id="selectedPrice">
+        </div>
+
+        <!-- Pilih Pembayaran -->
+        <div class="form-group">
+            <label>3. Pilih Metode Pembayaran</label>
+            <select id="paymentMethod" onchange="showPaymentInfo()" required>
+                <option value="" disabled selected>-- Pilih Metode --</option>
+                <option value="DANA">DANA</option>
+                <option value="QRIS">QRIS</option>
+            </select>
+
+            <div id="danaInfo" class="payment-info">
+                <strong>Transfer DANA ke:</strong><br>
+                <span style="font-size: 1.3em; font-weight: bold; color: var(--secondary); letter-spacing: 1px;">088709732750</span><br>
+                <small style="color: var(--text-muted);">Pastikan nominal transfer sesuai dengan harga paket.</small>
+            </div>
+            
+            <div id="qrisInfo" class="payment-info">
+                <strong>Scan QRIS di bawah ini:</strong><br>
+                <img src="IMG-20260720-WA0057_3.jpg" alt="QRIS Code">
+                <br>
+                <em style="font-size: 0.85rem; color: var(--text-muted);">(Screenshot halaman ini untuk di-scan via e-wallet/m-banking)</em><br>
+                <small style="color: var(--text-muted);">Mendukung: Gopay, OVO, ShopeePay, DANA, BCA, Mandiri, dll.</small>
+            </div>
+        </div>
+
+        <!-- Upload Bukti -->
+        <div class="form-group">
+            <label for="buktiBayar">4. Kirim Bukti Pembayaran Di Bawah Ini</label>
+            <input type="file" id="buktiBayar" accept="image/*" required>
+            <small style="color: var(--text-muted); font-size: 0.8rem;">Format: JPG, PNG. Maksimal 2MB.</small>
+        </div>
+
+        <!-- Tombol Konfirmasi -->
+        <button type="button" class="btn-submit" onclick="prosesPesanan()">Konfirmasi Pembayaran</button>
+    </form>
+
+    <!-- Fitur Link Pembelian Langsung -->
+    <div class="direct-link-box">
+        <p>🔗 Bagikan Link Pembelian Cepat Toko Ini:</p>
+        <div class="link-group">
+            <input type="text" class="link-input" id="storeLink" readonly value="https://tevistar-store.netlify.app/order">
+            <button class="btn-copy" onclick="copyLink()">Salin</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notifikasi Toast -->
+<div id="toast">Link berhasil disalin ke clipboard!</div>
+
+<script>
+    function selectStar(element, star, price) {
+        let options = document.querySelectorAll('#starOptions .option-card');
+        options.forEach(opt => opt.classList.remove('active'));
+        
+        element.classList.add('active');
+        
+        document.getElementById('selectedStar').value = star;
+        document.getElementById('selectedPrice').value = price;
+    }
+
+    function showPaymentInfo() {
+        let method = document.getElementById('paymentMethod').value;
+        document.getElementById('danaInfo').style.display = 'none';
+        document.getElementById('qrisInfo').style.display = 'none';
+
+        if (method === 'DANA') {
+            document.getElementById('danaInfo').style.display = 'block';
+        } else if (method === 'QRIS') {
+            document.getElementById('qrisInfo').style.display = 'block';
+        }
+    }
+
+    function prosesPesanan() {
+        let id = document.getElementById('teviId').value;
+        let star = document.getElementById('selectedStar').value;
+        let price = document.getElementById('selectedPrice').value;
+        let method = document.getElementById('paymentMethod').value;
+        let bukti = document.getElementById('buktiBayar').value;
+
+        if (!id || !star || !method || !bukti) {
+            alert("Harap lengkapi semua data, pilih nominal, dan upload bukti pembayaran!");
+            return;
+        }
+
+        let modalOverlay = document.getElementById('successModal');
+        let modalBody = document.getElementById('modalBody');
+
+        // Tampilkan Animasi Loading
+        modalBody.innerHTML = `
+            <div class="spinner"></div>
+            <div class="modal-title">Memproses Pesanan...</div>
+            <div class="modal-desc">Mohon tunggu sebentar, sistem sedang memverifikasi pembayaran Anda.</div>
+        `;
+        modalOverlay.classList.add('active');
+
+        // Simulasi proses verifikasi selama 2 detik, lalu ubah ke animasi sukses
+        setTimeout(() => {
+            modalBody.innerHTML = `
+                <div class="success-checkmark">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="modal-title">Pembayaran Berhasil!</div>
+                <div class="modal-desc">
+                    ID: <b>${id}</b><br>
+                    Paket: <b>${star} (${price})</b><br>
+                    Metode: <b>${method}</b><br><br>
+                    Bukti pembayaran terkirim! Star akan masuk otomatis dalam 1-5 Menit.
+                </div>
+                <button class="btn-modal" onclick="tutupModal()">Tutup</button>
+            `;
+        }, 2000);
+    }
+
+    function tutupModal() {
+        let modalOverlay = document.getElementById('successModal');
+        modalOverlay.classList.remove('active');
+        
+        // Reset form setelah sukses ditutup
+        document.getElementById('topupForm').reset();
+        let options = document.querySelectorAll('#starOptions .option-card');
+        options.forEach(opt => opt.classList.remove('active'));
+        document.getElementById('danaInfo').style.display = 'none';
+        document.getElementById('qrisInfo').style.display = 'none';
+    }
+
+    function copyLink() {
+        let copyText = document.getElementById("storeLink");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+
+        let toast = document.getElementById("toast");
+        toast.style.visibility = "visible";
+        toast.style.animation = "fadein 0.5s, fadeout 0.5s 2.5s";
+        setTimeout(function(){ toast.style.visibility = "hidden"; }, 3000);
+    }
+</script>
+
+
+<!-- Modal Animasi Proses & Sukses -->
+<div class="modal-overlay" id="successModal">
+    <div class="modal-content" id="modalBody">
+        <!-- Akan diisi secara dinamis oleh JavaScript -->
+    </div>
+</div>
+
+</body>
+</html>
